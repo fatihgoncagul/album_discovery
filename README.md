@@ -8,6 +8,8 @@ Kullanıcı detay butonuna tıklandığında, [UserDetailsPage'e](https://github
 
 UserDetailPage'teki [UserAlbumList'te](https://github.com/fatihgoncagul/album_discovery/blob/main/src/components/UserAlbumList.jsx) kullanıcının albümleri çekiliyor.
 
+Bu albümler [AlbumDetailDialog](https://github.com/fatihgoncagul/album_discovery/blob/main/src/components/AlbumDetailDialog.jsx) componenti sayesinde görüntülenebiliyor.
+
 [UserEditDialog'ta](https://github.com/fatihgoncagul/album_discovery/blob/main/src/components/UserEditDialog.jsx) ise kullanıcı bilgileri güncelleniyor.
 
 
