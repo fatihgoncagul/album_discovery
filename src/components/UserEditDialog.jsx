@@ -9,6 +9,7 @@ import {
   Box,
 } from "@mui/material";
 
+
 const UserEditDialog = ({ open, onClose, user, onSave }) => {
   const [formData, setFormData] = useState({ ...user });
 
@@ -24,18 +25,18 @@ const UserEditDialog = ({ open, onClose, user, onSave }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Kullanıcı Bilgilerini Düzenle</DialogTitle>
+      <DialogTitle>Edit user's information</DialogTitle>
       <DialogContent>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
           <TextField
-            label="Adı"
+            label="Name"
             name="name"
             value={formData.name}
             onChange={handleChange}
             fullWidth
           />
           <TextField
-            label="Kullanıcı Adı"
+            label="Username"
             name="username"
             value={formData.username}
             onChange={handleChange}
@@ -49,14 +50,14 @@ const UserEditDialog = ({ open, onClose, user, onSave }) => {
             fullWidth
           />
           <TextField
-            label="Telefon"
+            label="Phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
             fullWidth
           />
           <TextField
-            label="Web Sitesi"
+            label="Website"
             name="website"
             value={formData.website}
             onChange={handleChange}

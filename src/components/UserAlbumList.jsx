@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import AlbumDetailDialog from "./AlbumDetailDialog";
+import toast from "react-hot-toast";
 
 const UserAlbumList = ({ userId }) => {
   const [albums, setAlbums] = useState([]);
@@ -25,7 +26,7 @@ const UserAlbumList = ({ userId }) => {
         const data = await response.json();
         setAlbums(data);
       } catch (error) {
-        console.error("Albüm verisi alınırken bir hata oluştu:", error);
+        toast.error("Error fetching albums")
       } finally {
         setLoading(false);
       }
@@ -45,11 +46,11 @@ const UserAlbumList = ({ userId }) => {
   };
 
   if (loading) {
-    return <Typography>Albüm bilgileri yükleniyor...</Typography>;
+    return <Typography>Uploading album data..</Typography>;
   }
 
   if (albums.length === 0) {
-    return <Typography>Kullanıcının albümü bulunamadı.</Typography>;
+    return <Typography>Could not find album of the user.</Typography>;
   }
 
   return (
@@ -65,13 +66,13 @@ const UserAlbumList = ({ userId }) => {
           <TableHead>
             <TableRow sx={{ backgroundColor: "#f4f4f4" }}>
               <TableCell>
-                <b>Albüm ID</b>
+                <b>Album ID</b>
               </TableCell>
               <TableCell>
-                <b>Albüm Adı</b>
+                <b>Album Name</b>
               </TableCell>
               <TableCell align="center">
-                <b>İşlem</b>
+                <b>Function</b>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -91,7 +92,7 @@ const UserAlbumList = ({ userId }) => {
                     }}
                     onClick={() => handleDialogOpen(album.id)}
                   >
-                    Albüm Detayı
+                    Album's Detail
                   </Button>
                 </TableCell>
               </TableRow>
@@ -100,7 +101,7 @@ const UserAlbumList = ({ userId }) => {
         </Table>
       </TableContainer>
 
-      {/* Albüm Detay Dialog */}
+      
       {selectedAlbumId && (
         <AlbumDetailDialog
           open={dialogOpen}

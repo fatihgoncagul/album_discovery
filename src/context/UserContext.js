@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const UserContext = createContext();
 
@@ -19,7 +20,7 @@ export const UserProvider = ({ children }) => {
       const data = await response.json();
       mergeUpdatedUsers(data);
     } catch (error) {
-      console.error("Kullanıcıları çekerken bir hata oluştu:", error);
+      toast.error("Error fetching users.")
     } finally {
       setLoading(false);
     }

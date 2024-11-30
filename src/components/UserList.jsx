@@ -48,7 +48,7 @@ const UserList = () => {
           color: "text.primary",
         }}
       >
-        Kullanıcı Listesi
+        User List
       </Typography>
       <Box
         sx={{
@@ -58,7 +58,7 @@ const UserList = () => {
         }}
       >
         <TextField
-          label="Kullanıcı Ara"
+          label="Search User"
           variant="outlined"
           size="small"
           value={searchTerm}
@@ -97,7 +97,7 @@ const UserList = () => {
                 marginTop: "24px",
               }}
             >
-              Aramanızla eşleşen kullanıcı bulunamadı.
+              Not found
             </Typography>
           )
         )}

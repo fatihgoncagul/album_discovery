@@ -33,7 +33,7 @@ const UserDetailCard = ({ user, onUserUpdate }) => {
           textAlign: "center",
         }}
       >
-        {/* Kullanıcı Avatarı ve Adı */}
+       
         <Box sx={{ textAlign: "center", mb: 3 }}>
           <Avatar
             src={`https://picsum.photos/seed/${user.id}/150`}
@@ -60,16 +60,16 @@ const UserDetailCard = ({ user, onUserUpdate }) => {
 
         <Divider sx={{ my: 2 }} />
 
-        {/* Kullanıcı Detayları */}
+        
         <CardContent>
           <Typography variant="body1" sx={{ textAlign: "left", mb: 1 }}>
             <b>Email:</b> {email}
           </Typography>
           <Typography variant="body1" sx={{ textAlign: "left", mb: 1 }}>
-            <b>Telefon:</b> {phone}
+            <b>Phone:</b> {phone}
           </Typography>
           <Typography variant="body1" sx={{ textAlign: "left", mb: 1 }}>
-            <b>Web Sitesi:</b>{" "}
+            <b>Website:</b>{" "}
             <a
               href={`http://${website}`}
               target="_blank"
@@ -89,7 +89,7 @@ const UserDetailCard = ({ user, onUserUpdate }) => {
             "{company.catchPhrase}"
           </Typography>
           <Typography variant="body1" sx={{ textAlign: "left", mb: 1 }}>
-            <b>Adres:</b>{" "}
+            <b>Address:</b>{" "}
             {`${address.street}, ${address.suite}, ${address.city}, ${address.zipcode}`}
           </Typography>
           <Typography variant="body2" sx={{ textAlign: "left", color: "gray" }}>
@@ -99,7 +99,7 @@ const UserDetailCard = ({ user, onUserUpdate }) => {
 
         <Divider sx={{ my: 2 }} />
 
-        {/* Düzenle Butonu */}
+        
         <Box sx={{ textAlign: "center", mt: 2 }}>
           <Button
             variant="contained"
@@ -113,7 +113,7 @@ const UserDetailCard = ({ user, onUserUpdate }) => {
             }}
             onClick={handleOpenEditDialog}
           >
-            Kullanıcı Düzenle
+            Edit User
           </Button>
         </Box>
       </Card>

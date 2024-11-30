@@ -8,6 +8,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
+import toast from "react-hot-toast";
 
 const UserDetailPage = () => {
   const { selectedUser, setSelectedUser, setUpdatedUsers } = useUserContext();
@@ -22,6 +23,7 @@ const UserDetailPage = () => {
 
     sessionStorage.setItem("selectedUsers", JSON.stringify(updatedUsersList));
     setUpdatedUsers(updatedUsersList);
+    toast.success("Update saved.");
   };
 
 
@@ -35,7 +37,7 @@ const UserDetailPage = () => {
           marginTop: "50px",
         }}
       >
-        Kullanıcı seçilmedi!
+        No user selected.
       </Typography>
     );
   }
@@ -48,7 +50,7 @@ const UserDetailPage = () => {
         minHeight: "100vh",
       }}
     >
-      {/* Material-UI AppBar */}
+      
       <AppBar position="static" sx={{ backgroundColor: "#2d87f0" }}>
         <Toolbar>
           <Typography
@@ -70,7 +72,7 @@ const UserDetailPage = () => {
           fontWeight: "bold",
           color: "#333",
           marginBottom: "24px",
-          marginTop: "16px", // Add margin top here
+          marginTop: "16px", 
           position: "relative",
           "&::after": {
             content: '""',
@@ -83,7 +85,7 @@ const UserDetailPage = () => {
           },
         }}
       >
-        Kullanıcı Detayı
+        User's Detail
       </Typography>
 
       <Box
@@ -128,7 +130,7 @@ const UserDetailPage = () => {
               color: "#007BFF",
             }}
           >
-            {selectedUser.name}'in Albümleri
+            {selectedUser.name}'s Albums
           </Typography>
           <Divider sx={{ marginBottom: "16px" }} />
           <UserAlbumList userId={selectedUser.id} />

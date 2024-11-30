@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+
 const UserCard = ({ user, onUserDetailClick }) => {
   return (
     <Card
@@ -58,7 +59,7 @@ const UserCard = ({ user, onUserDetailClick }) => {
         </Typography>
       </CardContent>
 
-      {/* Kullanıcı Detay Butonu */}
+      
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Button
           variant="contained"
@@ -71,7 +72,7 @@ const UserCard = ({ user, onUserDetailClick }) => {
             fontWeight: "bold",
           }}
         >
-          Kullanıcı Detayı
+          User Detail
         </Button>
       </Box>
     </Card>
