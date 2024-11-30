@@ -1,36 +1,46 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(
-    JSON.parse(sessionStorage.getItem("selectedUser")) || null
+  const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const [updatedUsers, setUpdatedUsers] = useState(
+    JSON.parse(sessionStorage.getItem("selectedUsers")) || null
   );
+  const [selectedUser, setSelectedUser] = useState();
 
-  useEffect(() => {
-    // Kullanıcıları API'den çekiyoruz
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users");
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error("Kullanıcıları çekerken bir hata oluştu:", error);
-      }
-    };
-    fetchUsers();
-  }, []);
-
-  useEffect(() => {
-    // selectedUser'ı sessionStorage'da saklıyoruz
-    if (selectedUser) {
-      sessionStorage.setItem("selectedUser", JSON.stringify(selectedUser));
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("https://jsonplaceholder.typicode.com/users");
+      const data = await response.json();
+      mergeUpdatedUsers(data);
+    } catch (error) {
+      console.error("Kullanıcıları çekerken bir hata oluştu:", error);
+    } finally {
+      setLoading(false);
     }
-  }, [selectedUser]);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [location]);
+
+  const mergeUpdatedUsers = (data) => {
+    if ( data.length > 0) {
+      const mergedUsers = data.map((user) => {
+        const updatedUser = updatedUsers?.find((u) => u.id === user.id);
+        return updatedUser ? updatedUser : user;
+      });
+      setUsers(mergedUsers);
+    }
+  }
 
   return (
-    <UserContext.Provider value={{ users, selectedUser, setSelectedUser  }}>
+    <UserContext.Provider value={{ users, updatedUsers, setUpdatedUsers, selectedUser, setSelectedUser, setUpdatedUsers, loading}}>
       {children}
     </UserContext.Provider>
   );

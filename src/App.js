@@ -7,14 +7,14 @@ import UserDetailPage from './pages/UserDetailPage';
 function App() {
   return (
     <div className="App">
-      <UserProvider>
-        <Router>
+      <Router>
+        <UserProvider>
           <Routes>
             <Route path="/" element={<UserPage />} />
             <Route path="/userdetail" element={<UserDetailPage />} />
           </Routes>
-        </Router>
-      </UserProvider>
+        </UserProvider>
+      </Router>
     </div>
   );
 }

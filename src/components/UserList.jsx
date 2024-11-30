@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserCard from "./UserCard";
 import Paper from "@mui/material/Paper";
@@ -6,20 +6,26 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { useUserContext } from "../context/UserContext";
+import { CircularProgress } from "@mui/material";
 
 const UserList = () => {
-  const { users, setSelectedUser } = useUserContext();
+  const { users, setSelectedUser, loading} = useUserContext();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   const handleUserDetailClick = (user) => {
     setSelectedUser(user);
     navigate("/userdetail");
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    setFilteredUsers(
+      users.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [users, searchTerm]);
 
   return (
     <Paper
@@ -71,26 +77,31 @@ const UserList = () => {
           alignItems: "center",
         }}
       >
-        {filteredUsers.length > 0 ? (
-          filteredUsers.map((user) => (
-            <UserCard
-              key={user.id}
-              user={user}
-              onUserDetailClick={handleUserDetailClick}
-            />
-          ))
+        {loading ? (
+          <CircularProgress />
         ) : (
-          <Typography
-            variant="body1"
-            sx={{
-              color: "text.secondary",
-              textAlign: "center",
-              marginTop: "24px",
-            }}
-          >
-            Aramanızla eşleşen kullanıcı bulunamadı.
-          </Typography>
+          filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => (
+              <UserCard
+                key={user.id}
+                user={user}
+                onUserDetailClick={handleUserDetailClick}
+              />
+            ))
+          ) : (
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.secondary",
+                textAlign: "center",
+                marginTop: "24px",
+              }}
+            >
+              Aramanızla eşleşen kullanıcı bulunamadı.
+            </Typography>
+          )
         )}
+
       </Box>
     </Paper>
   );

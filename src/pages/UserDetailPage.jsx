@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useUserContext } from "../context/UserContext";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import UserDetailCard from "../components/UserDetailCard";
@@ -7,25 +6,27 @@ import UserAlbumList from "../components/UserAlbumList";
 import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
 
 const UserDetailPage = () => {
-  const { selectedUser  } = useUserContext();
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const storedUser = JSON.parse(sessionStorage.getItem("selectedUser"));
-    if (storedUser) {
-      setUser(storedUser);
-    }
-  }, [selectedUser]);
+  const { selectedUser, setSelectedUser, setUpdatedUsers } = useUserContext();
+  const navigate = useNavigate();
 
   const handleUserUpdate = (updatedUser) => {
-    setUser(updatedUser);
-    sessionStorage.setItem("selectedUser", JSON.stringify(updatedUser));
-   
+    setSelectedUser(updatedUser);
+    const existingUsers = JSON.parse(sessionStorage.getItem("selectedUsers")) || [];
+    const updatedUsersList = existingUsers.filter(user => user.id !== updatedUser.id);
+  
+    updatedUsersList.push(updatedUser);
+
+    sessionStorage.setItem("selectedUsers", JSON.stringify(updatedUsersList));
+    setUpdatedUsers(updatedUsersList);
   };
 
-  if (!user) {
+
+
+  if (!selectedUser) {
     return (
       <Typography
         variant="h6"
@@ -54,6 +55,8 @@ const UserDetailPage = () => {
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, textAlign: "center", fontWeight: "bold" }}
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
           >
             Album Discovery
           </Typography>
@@ -102,7 +105,7 @@ const UserDetailPage = () => {
             justifyContent: "center",
           }}
         >
-          <UserDetailCard user={user} onUserUpdate={handleUserUpdate} />
+          <UserDetailCard user={selectedUser} onUserUpdate={handleUserUpdate} />
         </Box>
 
         {/* Albüm Tablosu */}
@@ -125,10 +128,10 @@ const UserDetailPage = () => {
               color: "#007BFF",
             }}
           >
-            {user.name}'in Albümleri
+            {selectedUser.name}'in Albümleri
           </Typography>
           <Divider sx={{ marginBottom: "16px" }} />
-          <UserAlbumList userId={user.id} />
+          <UserAlbumList userId={selectedUser.id} />
         </Box>
       </Box>
     </Box>

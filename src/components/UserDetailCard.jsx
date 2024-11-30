@@ -16,8 +16,7 @@ const UserDetailCard = ({ user, onUserUpdate }) => {
   const handleCloseEditDialog = () => setIsEditDialogOpen(false);
 
   const handleSave = (updatedUser) => {
-    console.log("Güncellenen Kullanıcı Bilgileri:", updatedUser);
-    onUserUpdate(updatedUser); // Üst bileşene bilgileri aktar
+    onUserUpdate(updatedUser);
   };
 
   return (
