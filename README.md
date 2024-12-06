@@ -28,3 +28,5 @@ This React application allows you to view and edit users and their albums. Below
 - Allows easy access to the selected user's details across different components.
 - Combines updated user data with the fetched list to maintain an up-to-date user state.
 
+> Backend for this application is implemented in this [repository](https://github.com/fatihgoncagul/backend_album_discovery). Front end will be configured accordingly. 
+
